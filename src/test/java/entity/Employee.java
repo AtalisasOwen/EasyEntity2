@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Dto
-public class Enployee {
+public class Employee {
     Long id;
     String name;
     @DtoField(value = "name", rename = "dprtName")
