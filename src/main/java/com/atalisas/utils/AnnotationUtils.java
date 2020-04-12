@@ -11,6 +11,7 @@ public class AnnotationUtils {
 
     public static AnnotationValue getAnnotationValue(AnnotationMirror annotationMirror, String methodName){
         Map<? extends ExecutableElement, ? extends AnnotationValue> annVal =  annotationMirror.getElementValues();   // 注解内容
+        System.out.println("ANNVAL: " + annVal);
         List<AnnotationValue> values = annVal.entrySet().stream()
                 .filter(entry -> entry.getKey().getSimpleName().contentEquals(methodName))
                 .map(Map.Entry::getValue)
@@ -18,7 +19,7 @@ public class AnnotationUtils {
         if (values.size() > 0){
             return values.get(0);
         }else {
-            throw new IllegalArgumentException("有错");
+            return null;
         }
     }
 }

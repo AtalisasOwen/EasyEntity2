@@ -8,4 +8,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.SOURCE)
 public @interface AutoRepository {
+    RepositoryStrategy strategy() default RepositoryStrategy.JPA_WITH_SPECIFICATION;
 }
