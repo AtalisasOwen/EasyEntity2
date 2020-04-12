@@ -1,11 +1,13 @@
 package com.atalisas.parser;
 
 import com.atalisas.entity.*;
+import com.atalisas.utils.AnnotationUtils;
 import com.atalisas.utils.ClassUtils;
 import com.atalisas.utils.ElementUtils;
 import com.atalisas.utils.FieldMethodUtils;
 
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +16,14 @@ import java.util.logging.Logger;
 
 public class DtoParser {
 
-    public final static String[] ANNOTIONS = {"DtoField", "DtoIgnore", "DtoCollectionField", "DtoEntityField"};
+    public final static String[] ANNOTIONS = {"DtoField", "DtoIgnore", "DtoCollectionField", "DtoEntityField", "DtoCustomField"};
     public final static Logger log = Logger.getLogger("DtoParser");
 
     DtoFieldParser dtoFieldParser = new DtoFieldParser();
     NormalFieldParser normalFieldParser = new NormalFieldParser();
     DtoCollectionFieldParser collectionFieldParser = new DtoCollectionFieldParser();
     DtoEntityFieldParser entityFieldParser = new DtoEntityFieldParser();
+    DtoCustomFieldParser customFieldParser = new DtoCustomFieldParser();
 
 
     public MappingAnnotationEntity generateMappingAnnotation(Element innerElement, String parent){
@@ -43,6 +46,13 @@ public class DtoParser {
                     log.info(s.toString());
                     DependencyGraph.addDependency(parent, innerElement.asType().toString());
                     return s;
+                } else if (ann.equals("DtoCustomField")){
+                    MappingAnnotationEntity s = customFieldParser.generateMappingAnnotation(innerElement, dtoField);
+                    AnnotationValue mapperClass = AnnotationUtils.getAnnotationValue(dtoField, "mapperClass");
+                    String mapperClassString = mapperClass.getValue().toString();
+                    System.out.println("Input Dependency Input: " + mapperClassString);
+                    DependencyGraph.addUserInputDependency(parent, mapperClassString+".class");
+                    return s;
                 }
             }
         }
@@ -62,6 +72,8 @@ public class DtoParser {
                     return collectionFieldParser.parse(innerElement, dtoField);
                 } else if (ann.equals("DtoEntityField")){
                     return entityFieldParser.parse(innerElement, dtoField);
+                } else if (ann.equals("DtoCustomField")){
+                    return customFieldParser.parse(innerElement, dtoField);
                 }
             }
         }

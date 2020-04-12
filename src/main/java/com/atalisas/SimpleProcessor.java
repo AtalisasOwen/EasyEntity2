@@ -47,7 +47,7 @@ public class SimpleProcessor extends AbstractProcessor {
                 });
                 mapStructMapperEntities.stream().forEach(mapperEntity -> {
                     try {
-                        String usesClasses = DependencyGraph.getUserClassesString(mapperEntity.getPackageName(), mapperEntity.getClassName());
+                        String usesClasses = DependencyGraph.getUsesClassString(mapperEntity.getPackageName(), mapperEntity.getClassName());
                         if (usesClasses != null){
                             mapperEntity.addUsesClass(usesClasses);
                         }

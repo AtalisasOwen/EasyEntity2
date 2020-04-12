@@ -13,7 +13,9 @@ public class MapperMethodEntity {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        mappingAnnotationEntityList.stream().forEach(sb::append);
+        if (mappingAnnotationEntityList != null){
+            mappingAnnotationEntityList.stream().forEach(sb::append);
+        }
         sb.append("    "+returnType + " " + methodName + "(" + paraType +" " + "e);\n");
         return sb.toString();
     }

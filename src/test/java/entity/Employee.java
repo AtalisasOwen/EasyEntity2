@@ -1,18 +1,20 @@
 package entity;
 
 import com.atalisas.annotation.Dto;
+import com.atalisas.annotation.DtoCustomField;
 import com.atalisas.annotation.DtoField;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Dto
 public class Employee {
     Long id;
     String name;
-    @DtoField(value = "name", rename = "dprtName")
-    Department dprt;
+    @DtoCustomField(rename = "dprt", typeClass = Department.class, mapperClass = DepartmentMapper.class)
+    Long dprtId;
+    @DtoCustomField(rename = "dprts", typeClass = Department.class, mapperClass = DepartmentMapper.class)
+    List<Long> dprtIds;
 
-    public void test(){
-        dprt = new Department();
-    }
 }

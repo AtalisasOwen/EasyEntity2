@@ -1,5 +1,6 @@
 package com.atalisas.entity;
 
+import java.net.StandardSocketOptions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,24 +22,23 @@ public class MapStructMapperEntity {
         sb.append("\n");
         String mapperImport = String.join(", ", mapperImportClasses);
         sb.append("@Mapper(imports = {" + mapperImport+"}");
-
         if (usesClasses != null){
             String useClassesStr = String.join(", ", usesClasses);
             String ss = " ,uses = {"+useClassesStr+"}";
             sb.append(ss);
         }
         sb.append(")\n");
-
         sb.append("public interface " + className + " {\n" +
                 "    "+className+" INSTANCE = Mappers.getMapper( "+className+".class );\n\n");
-        mapperMethodEntities.stream().forEach(mapperMethodEntity -> {
-            sb.append(mapperMethodEntity);
-            sb.append("\n");
-
-            sb.append("    @InheritInverseConfiguration\n");
-            sb.append("    "+mapperMethodEntity.getParaType() + " " + "toEnity(" + mapperMethodEntity.getReturnType() + " dto);");
-            sb.append("\n");
-        });
+        if (mapperMethodEntities != null){
+            mapperMethodEntities.stream().forEach(mapperMethodEntity -> {
+                sb.append(mapperMethodEntity);
+                sb.append("\n");
+                sb.append("    @InheritInverseConfiguration\n");
+                sb.append("    "+mapperMethodEntity.getParaType() + " " + "toEnity(" + mapperMethodEntity.getReturnType() + " dto);");
+                sb.append("\n");
+            });
+        }
         sb.append("}\n");
         return sb.toString();
     }

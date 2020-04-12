@@ -3,6 +3,9 @@ package entity;
 import entity.mapper.EmployeeMapper;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EntityTest {
 
     @Test
@@ -10,10 +13,11 @@ public class EntityTest {
         Employee e = new Employee();
         e.setId(1L);
         e.setName("LALALA");
-        Department department = new Department();
-        department.setId(12L);
-        department.setName(":sdada");
-        e.setDprt(department);
+        e.setDprtId(1L);
+        List<Long> dprts = new ArrayList<>();
+        dprts.add(2L);
+        dprts.add(3L);
+        e.setDprtIds(dprts);
         entity.dto.EmployeeDto dto = EmployeeMapper.INSTANCE.toDto(e);
         System.out.println(dto);
     }
