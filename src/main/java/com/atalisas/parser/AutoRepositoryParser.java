@@ -26,7 +26,7 @@ public class AutoRepositoryParser {
         }else{
             List<String> s = new ArrayList<>();
             for (int i = 0; i < ss.length - 2; i++){
-                s.add(ss[0]);
+                s.add(ss[i]);
             }
             s.add("repository");
             return String.join(".", s);

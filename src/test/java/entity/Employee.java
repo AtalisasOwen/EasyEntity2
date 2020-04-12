@@ -10,7 +10,6 @@ import java.util.List;
 
 @Data
 @Dto
-@AutoRepository
 public class Employee {
     @Id
     Long id;
