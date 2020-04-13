@@ -76,7 +76,10 @@ public class ControllerMethodEntity {
 
     public String generateInnerCode(boolean dto){
         StringBuilder sb = new StringBuilder();
-        sb.append("        return ");
+        sb.append("        ");
+        if (!this.returnType.equals("void")){
+            sb.append("return ");
+        }
         if (!dto){
             sb.append("service."+methodName+"(");
             String paras = this.methodParas.stream().map(Field::getParaName).collect(Collectors.joining(", "));
