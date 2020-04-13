@@ -7,7 +7,7 @@ import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
-@AutoController(Employee.class)
+//@AutoController(Employee.class)
 public class EmployeeService {
 
     EmployeeMapper mapper = EmployeeMapper.INSTANCE;

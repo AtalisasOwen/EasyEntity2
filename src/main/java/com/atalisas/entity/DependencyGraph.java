@@ -31,10 +31,10 @@ public class DependencyGraph {
     }
 
     public static void addDto(String entity, String dto){
-        System.out.println("ADD ENTITY: " + entity);
-        DTO.put(entity, entity+"Dto");
-        DTO.put("java.util.List<" + entity + ">", "java.util.List<" + entity + "Dto>");
-        DTO.put("java.util.Set<" + entity + ">", "java.util.Set<" + entity + "Dto>");
+        System.out.println("ADD ENTITY: " + entity + " => " + dto);
+        DTO.put(entity, dto);
+        DTO.put("java.util.List<" + entity + ">", "java.util.List<" + dto +">");
+        DTO.put("java.util.Set<" + entity + ">", "java.util.Set<" + dto + ">");
     }
 
     public static String getDto(String entity){

@@ -161,6 +161,8 @@ public class AutoControllerParser {
             controllerClassEntity.getAnnotations().add("@RequestMapping(\"/api\")");
             controllerClassEntity.setClassName(toControllerClass(s.asType().toString()));
             controllerClassEntity.setPackageName(toControllerPackage(s.asType().toString()));
+            controllerClassEntity.getImports().add("import javax.validation.*;");
+            controllerClassEntity.getImports().add("import java.util.stream.Collectors;");
             controllerClassEntity.getImports().add("import org.springframework.web.bind.annotation.*;");
             controllerClassEntity.getImports().add("import org.springframework.beans.factory.annotation.Autowired;");
             controllerClassEntity.getImports().add("import org.springframework.data.domain.PageRequest;");
