@@ -1,9 +1,8 @@
 package com.atalisas;
 
-import com.atalisas.entity.ClassEntity;
-import com.atalisas.entity.DependencyGraph;
-import com.atalisas.entity.MapStructMapperEntity;
-import com.atalisas.entity.RepositoryClassEntity;
+import com.atalisas.annotation.AutoController;
+import com.atalisas.entity.*;
+import com.atalisas.parser.AutoControllerParser;
 import com.atalisas.parser.AutoRepositoryParser;
 import com.atalisas.parser.DtoParser;
 import com.atalisas.utils.AnnotationUtils;
@@ -33,28 +32,22 @@ public class SimpleProcessor extends AbstractProcessor {
 
     DtoParser dtoParser = new DtoParser();
     AutoRepositoryParser repositoryParser = new AutoRepositoryParser();
+    AutoControllerParser controllerParser = new AutoControllerParser();
 
 
     public void processAutoControllerAnnotation(Set<? extends Element> classes){
-        for (Element s : classes){
-            System.out.println("Entity Class: " + s.asType().toString());
-            AnnotationMirror serviceEntity = ElementUtils.judgeFieldWithAnnotion(s, "AutoController");
-            System.out.println("AnnotationMirror: " + serviceEntity);
-            for (Element innerElement: s.getEnclosedElements()){
-                if (innerElement.getKind().equals(ElementKind.METHOD) && innerElement.getModifiers().contains(Modifier.PUBLIC)){
-                    ExecutableElement methodSign = (ExecutableElement)innerElement;
-                    System.out.println("METHOD SIGN NAME: " + methodSign.getSimpleName());
-                    System.out.println("METHOD SIGN RETURN: " + methodSign.getReturnType());
-                    System.out.println("METHOD SIGN Parameters: " + methodSign.getParameters() + ""
-                            + methodSign.getParameters().stream().map(VariableElement::asType).collect(Collectors.toList()));
-                    System.out.println("METHOD SIGN Receiver: " + methodSign.getReceiverType());
-                    System.out.println("METHOD SIGN Thrown: " + methodSign.getThrownTypes());
-                    System.out.println("+++++++++++++++++++++++++++++++++++++++++++++");
-                }
+        List<ControllerClassEntity> classEntities = controllerParser.parse(classes);
+        classEntities.stream().forEach(controllerClassEntity -> {
+            try {
+                JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(controllerClassEntity.getClassName());
+                JavaFileWriter.writeJavaFile(builderFile, controllerClassEntity.toString());
+                log.fine(controllerClassEntity.toString());
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        });
 
-
-        }
     }
 
     public void processAutoRepositoryAnnotation(Set<? extends Element> classes){
@@ -111,7 +104,11 @@ public class SimpleProcessor extends AbstractProcessor {
                 processDtoAnnotations(classes);
             } else if (typeElement.getSimpleName().contentEquals("AutoRepository")){
                 processAutoRepositoryAnnotation(classes);
-            } else if (typeElement.getSimpleName().contentEquals("AutoController")){
+            }
+        }
+        for (TypeElement typeElement : annotations) {
+            Set<? extends Element> classes = roundEnv.getElementsAnnotatedWith(typeElement);
+            if (typeElement.getSimpleName().contentEquals("AutoController")){
                 processAutoControllerAnnotation(classes);
             }
         }

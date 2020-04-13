@@ -83,7 +83,6 @@ public class DtoParser {
     public List<ClassEntity> parse(Set<? extends Element> elements) {
         List<ClassEntity> classEntities = new ArrayList<>();
         for (Element s : elements) { // 找到注解了Dto的类
-
             ClassEntity classEntity = new ClassEntity();
             classEntity.setPackageName(ClassUtils.getPackage(s.toString()) + ".dto");
             classEntity.setClassName(ClassUtils.getSimpleClassName(s.toString()) + "Dto");
@@ -103,6 +102,7 @@ public class DtoParser {
                 classEntity.getMethodEntities().add(getter);
 
             }
+            DependencyGraph.addDto(s.toString(), classEntity.getPackageName()+"."+classEntity.getClassName());
             classEntities.add(classEntity);
 
         }
@@ -152,6 +152,10 @@ public class DtoParser {
                 methodEntity.addMappingAnnotationEntity(annotationEntity);
             }
             mapperEntity.addMapperMethodEntity(methodEntity);
+
+            String mapperName = mapperEntity.getPackageName() + "." + mapperEntity.getClassName();
+            DependencyGraph.addMapper(s.asType().toString(), mapperName);
+
             entities.add(mapperEntity);
         }
 

@@ -9,6 +9,38 @@ import java.util.stream.Collectors;
 public class DependencyGraph {
     public static Map<String, Set<String>> GRAPH = new HashMap<>();
     public static Map<String, Set<String>> USER_INPUT_GRAPH = new HashMap<>();
+    public static Map<String, String> DTO = new HashMap<>();
+    public static Map<String, String> MAPPER = new HashMap<>();
+
+    public static void addMapper(String entity, String mapper){
+        System.out.println("Mapper ADDDDD: "+entity + " => "+mapper);
+        MAPPER.put(entity, mapper);
+    }
+
+    public static String getMapper(String service){
+        String[] ss = service.split("\\.");
+        String serviceName = ss[ss.length-1].replaceFirst("Service", "");
+        System.out.println("SERVICE: " + service);
+        System.out.println("Mapper: " + MAPPER);
+        for (Map.Entry<String, String> entry : MAPPER.entrySet()){
+            if (entry.getKey().contains(serviceName)){
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+
+    public static void addDto(String entity, String dto){
+        System.out.println("ADD ENTITY: " + entity);
+        DTO.put(entity, entity+"Dto");
+        DTO.put("java.util.List<" + entity + ">", "java.util.List<" + entity + "Dto>");
+        DTO.put("java.util.Set<" + entity + ">", "java.util.Set<" + entity + "Dto>");
+    }
+
+    public static String getDto(String entity){
+        return DTO.getOrDefault(entity, entity);
+    }
+
 
     public static void addUserInputDependency(String parent, String dependency){
         System.out.println("User Input: " + parent + "--" + dependency);

@@ -1,5 +1,6 @@
 package com.atalisas.parser;
 
+import com.atalisas.entity.DependencyGraph;
 import com.atalisas.entity.RepositoryClassEntity;
 import com.atalisas.entity.RepositoryExtendsEntity;
 import com.atalisas.utils.AnnotationUtils;
@@ -28,8 +29,8 @@ public class AutoRepositoryParser {
                 RepositoryClassEntity repositoryClassEntity = jpaParser.parse(s);
                 classEntities.add(repositoryClassEntity);
             }
-
         }
+
         return classEntities;
     }
 }
