@@ -39,7 +39,8 @@ public class SimpleProcessor extends AbstractProcessor {
         List<ControllerClassEntity> classEntities = controllerParser.parse(classes);
         classEntities.stream().forEach(controllerClassEntity -> {
             try {
-                JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(controllerClassEntity.getClassName());
+                JavaFileObject builderFile = processingEnv.getFiler().
+                        createSourceFile(controllerClassEntity.getPackageName() + "." +controllerClassEntity.getClassName());
                 JavaFileWriter.writeJavaFile(builderFile, controllerClassEntity.toString());
                 log.fine(controllerClassEntity.toString());
 
@@ -54,7 +55,8 @@ public class SimpleProcessor extends AbstractProcessor {
         List<RepositoryClassEntity> classEntities = repositoryParser.parse(classes);
         classEntities.stream().forEach(classEntity -> {
             try {
-                JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(classEntity.getClassName());
+                JavaFileObject builderFile = processingEnv.getFiler().
+                        createSourceFile(classEntity.getPackageName()+"."+classEntity.getClassName());
                 JavaFileWriter.writeJavaFile(builderFile, classEntity.toString());
                 log.fine(classEntity.toString());
 
@@ -70,7 +72,8 @@ public class SimpleProcessor extends AbstractProcessor {
         classEntities.stream().forEach(classEntity -> {
             classEntity.addToStringMethod();
             try {
-                JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(classEntity.getClassName());
+                JavaFileObject builderFile = processingEnv.getFiler().
+                        createSourceFile(classEntity.getPackageName()+"."+classEntity.getClassName());
                 JavaFileWriter.writeJavaFile(builderFile, classEntity.toString());
                 log.fine(classEntity.toString());
 
@@ -84,7 +87,8 @@ public class SimpleProcessor extends AbstractProcessor {
                 if (usesClasses != null){
                     mapperEntity.addUsesClass(usesClasses);
                 }
-                JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(mapperEntity.getClassName());
+                JavaFileObject builderFile = processingEnv.getFiler().
+                        createSourceFile(mapperEntity.getPackageName()+"."+mapperEntity.getClassName());
                 JavaFileWriter.writeJavaFile(builderFile, mapperEntity.toString());
                 log.fine(mapperEntity.toString());
 
