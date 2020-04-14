@@ -57,7 +57,7 @@ public class DtoCollectionFieldParser {
             entity.addImportClass(var4+".class");
             entity.addImportClass("java.util.stream.Collectors.class");
         } else {
-            throw new IllegalArgumentException("不支持该集合类 " + field);
+            throw new IllegalArgumentException("Not support this Collection:  " + field);
         }
 
         return entity;
@@ -94,7 +94,7 @@ public class DtoCollectionFieldParser {
             log.info("CollectionDto: " + fieldEntity);
             return fieldEntity;
         } else {
-            throw new IllegalArgumentException("不支持该集合类 " + field);
+            throw new IllegalArgumentException("Not support this Collection:  " + field);
         }
     }
 }
