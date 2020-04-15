@@ -6,7 +6,7 @@
 
     <groupId>io.github.atalisasowen</groupId>
     <artifactId>EasyEntity2</artifactId>
-    <version>0.6</version>
+    <version>0.7.1</version>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>
@@ -53,9 +53,7 @@
 
     <properties>
         <auto-service.version>1.0-rc2</auto-service.version>
-        <maven-compiler-plugin.version>
-            3.8.1
-        </maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
     </properties>
 
@@ -66,7 +64,6 @@
             <groupId>com.google.auto.service</groupId>
             <artifactId>auto-service</artifactId>
             <version>${auto-service.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -86,7 +83,6 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
             <version>${org.mapstruct.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -99,7 +95,6 @@
     </dependencies>
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
