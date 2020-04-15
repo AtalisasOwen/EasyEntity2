@@ -80,25 +80,25 @@ public class ControllerMethodEntity {
         if (!this.returnType.equals("void")){
             sb.append("return ");
         }
+
+        String paras = this.methodParas.stream().map(Field::getParaName).collect(Collectors.joining(", "));
+        paras = paras.replaceFirst("page, limit", "PageRequest.of(page, limit)");
+
         if (!dto){
             sb.append("service."+methodName+"(");
-            String paras = this.methodParas.stream().map(Field::getParaName).collect(Collectors.joining(", "));
             sb.append(paras);
             sb.append(");");
         }else{
             if (this.returnType.startsWith("java.util.List")){
                 sb.append("service."+methodName+"(");
-                String paras = this.methodParas.stream().map(Field::getParaName).collect(Collectors.joining(", "));
                 sb.append(paras);
                 sb.append(").stream().map(mapper::toDto).collect(Collectors.toList());");
             } else if(this.returnType.startsWith("java.util.Set")){
                 sb.append("service."+methodName+"(");
-                String paras = this.methodParas.stream().map(Field::getParaName).collect(Collectors.joining(", "));
                 sb.append(paras);
                 sb.append(").stream().map(mapper::toDto).collect(Collectors.toSet());");
             }else{
                 sb.append("mapper.toDto(service."+methodName+"(");
-                String paras = this.methodParas.stream().map(Field::getParaName).collect(Collectors.joining(", "));
                 sb.append(paras);
                 sb.append("));");
             }

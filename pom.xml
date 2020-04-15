@@ -6,7 +6,7 @@
 
     <groupId>io.github.atalisasowen</groupId>
     <artifactId>EasyEntity2</artifactId>
-    <version>0.7.1</version>
+    <version>0.7.2</version>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>

@@ -93,7 +93,7 @@ public class AutoControllerParser {
                 ControllerMethodEntity.Field limitPara = new ControllerMethodEntity.Field();
                 limitPara.setParaType("int");
                 limitPara.setParaName("limit");
-                pagePara.getAnnotation().add("@RequestParam(\"limit\")");
+                limitPara.getAnnotation().add("@RequestParam(\"limit\")");
                 fields.add(pagePara);
                 fields.add(limitPara);
             } else {
