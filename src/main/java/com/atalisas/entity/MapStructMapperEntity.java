@@ -35,7 +35,7 @@ public class MapStructMapperEntity {
                 sb.append(mapperMethodEntity);
                 sb.append("\n");
                 sb.append("    @InheritInverseConfiguration\n");
-                sb.append("    "+mapperMethodEntity.getParaType() + " " + "toEnity(" + mapperMethodEntity.getReturnType() + " dto);");
+                sb.append("    "+mapperMethodEntity.getParaType() + " " + "toEntity(" + mapperMethodEntity.getReturnType() + " dto);");
                 sb.append("\n");
             });
         }

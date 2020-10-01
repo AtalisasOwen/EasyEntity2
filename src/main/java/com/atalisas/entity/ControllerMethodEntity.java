@@ -24,6 +24,16 @@ public class ControllerMethodEntity {
             return paraName;
         }
 
+        public String getDtoToEntityWrapper(){
+            System.out.println(paraType);
+            if (DependencyGraph.DTO.containsKey(paraType)){
+                System.out.println( paraType + "==> using toEntity");
+                return "mapper.toEntity(" + paraName + ")";
+            }else{
+                return paraName;
+            }
+        }
+
         public void setParaName(String paraName) {
             this.paraName = paraName;
         }
@@ -81,7 +91,9 @@ public class ControllerMethodEntity {
             sb.append("return ");
         }
 
-        String paras = this.methodParas.stream().map(Field::getParaName).collect(Collectors.joining(", "));
+        String paras = this.methodParas.stream()
+                .map(Field::getDtoToEntityWrapper)
+                .collect(Collectors.joining(", "));
         paras = paras.replaceFirst("page, limit", "PageRequest.of(page, limit)");
 
         if (!dto){

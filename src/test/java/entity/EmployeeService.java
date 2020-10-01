@@ -2,12 +2,12 @@ package entity;
 
 import com.atalisas.annotation.AutoController;
 import entity.mapper.EmployeeMapper;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
-//@AutoController(Employee.class)
+@AutoController(Employee.class)
 public class EmployeeService {
 
     EmployeeMapper mapper = EmployeeMapper.INSTANCE;
@@ -24,7 +24,7 @@ public class EmployeeService {
 
     //@GetMapping("/employee/{id}")
     public Employee getEmployee(Long id){
-        return null;
+        return new Employee();
     }
 
     //@GetMapping("/employee/{id}")

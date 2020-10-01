@@ -51,10 +51,8 @@ public class AutoControllerParser {
         if (paths.length == 1){
 
             if (parameters.size() > 0 && parameters.get(0).asType().toString().startsWith("java.lang")){
-                System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
                 return url + paths[0].toLowerCase() + "/{" + parameters.get(0) + "}";
             }
-            System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
             return url + paths[0].toLowerCase();
         }else{
             url = url + paths[0].toLowerCase();

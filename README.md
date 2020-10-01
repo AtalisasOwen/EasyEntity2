@@ -18,7 +18,7 @@
         <dependency>
             <groupId>io.github.atalisasowen</groupId>
             <artifactId>EasyEntity2</artifactId>
-            <version>0.7.1</version>
+            <version>0.7.5</version>
         </dependency>
     </dependencies>
 
@@ -131,7 +131,7 @@ public interface EmployeeMapper {
     com.example.demo.entity.dto.EmployeeDto toDto(com.example.demo.entity.Employee e);
 
     @InheritInverseConfiguration
-    com.example.demo.entity.Employee toEnity(com.example.demo.entity.dto.EmployeeDto dto);
+    com.example.demo.entity.Employee toEntity(com.example.demo.entity.dto.EmployeeDto dto);
 }
 
 ```
